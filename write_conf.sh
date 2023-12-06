@@ -6,18 +6,17 @@ PUBLIC_KEY=$(cat /etc/wireguard/public.key)
 
 #http://157.245.96.121:8888
 
+# response=$(curl -s -X POST http://157.245.96.121:8000/get_ip \
+#- H "Content-Type: application/json" \
+# -d '{"public_key": \"$PUBLIC_KEY\"}')
+
 # Send POST request and store the response in a variable
-response=$(curl -s -X POST http://157.245.96.121:8888/get_ip \
+response=$(curl -s -X POST http://157.245.96.121:8000/get_ip \
 -H "Content-Type: application/json" \
--d '{"public_key": "$PUBLIC_KEY"}')
+-d "{\"public_key\": \"$PUBLIC_KEY\"}")
 
 # Parse the number from the response and store in a Bash variable
 number=$(echo $response | jq '.number')
-
-# Echo the number to verify
-# echo $number
-
-
 
 
 # Check if the keys were read correctly. If not, exit the script.
@@ -46,3 +45,4 @@ Endpoint = 157.245.96.121:51820"
 echo "$config" | sudo tee /etc/wireguard/wg0.conf > /dev/null
 
 wg-quick up wg0
+ping -c 5 10.8.0.1

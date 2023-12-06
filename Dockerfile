@@ -20,6 +20,9 @@ RUN mkdir /home/spark
 RUN chown -R spark:spark /home/spark
 RUN echo "PATH=\"/opt/spark/bin:${PATH}\"" > /home/spark/.bashrc
 
-ENTRYPOINT ["write_conf.sh"]
+COPY write_conf.sh /usr/local/bin/write_sparkk_conf.sh
+RUN chmod +x /usr/local/bin/write_sparkk_conf.sh
+
+ENTRYPOINT ["/usr/local/bin/write_sparkk_conf.sh"]
 
 CMD ["bash"]
