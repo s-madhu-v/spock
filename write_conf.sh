@@ -1,14 +1,12 @@
 #!/bin/bash
 
+wg genkey | sudo tee /etc/wireguard/private.key
+chmod go= /etc/wireguard/private.key
+cat /etc/wireguard/private.key | wg pubkey | sudo tee /etc/wireguard/public.key
+
 # Read the private and public keys from their respective files
 PRIVATE_KEY=$(cat /etc/wireguard/private.key)
 PUBLIC_KEY=$(cat /etc/wireguard/public.key)
-
-#http://157.245.96.121:8888
-
-# response=$(curl -s -X POST http://157.245.96.121:8000/get_ip \
-#- H "Content-Type: application/json" \
-# -d '{"public_key": \"$PUBLIC_KEY\"}')
 
 # Send POST request and store the response in a variable
 response=$(curl -s -X POST http://157.245.96.121:8000/get_ip \
@@ -44,5 +42,9 @@ Endpoint = 157.245.96.121:51820"
 # Write to wg0.conf
 echo "$config" | sudo tee /etc/wireguard/wg0.conf > /dev/null
 
+curl -s -X POST http://157.245.96.121:8000/add_peer -H "Content-Type: application/json" -d "{\"public_key\": \"$PUBLIC_KEY\", \"number\": \"$number\"}"
+
 wg-quick up wg0
 ping -c 5 10.8.0.1
+
+tail -f /dev/null
