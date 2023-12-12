@@ -6,6 +6,8 @@ RUN apt update
 RUN apt-get update
 RUN apt install sudo -y
 RUN apt install vim -y
+RUN apt install -y openssh-server
+RUN mkdir -p /run/sshd
 RUN apt install wireguard -y
 RUN apt-get install -y iproute2
 RUN apt-get install -y iputils-ping

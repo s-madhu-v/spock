@@ -37,7 +37,8 @@ Address = 10.8.0.$number/24
 [Peer]
 PublicKey = A9D1f+HVpyV+H7h4mtuJy0p/LJ/kfzTMawXF/L/p5lQ=
 AllowedIPs = 10.8.0.0/24
-Endpoint = 157.245.96.121:51820"
+Endpoint = 157.245.96.121:51820
+PersistentKeepalive = 60"
 
 # Write to wg0.conf
 echo "$config" | sudo tee /etc/wireguard/wg0.conf > /dev/null
@@ -47,5 +48,6 @@ curl -s -X POST http://157.245.96.121:8000/add_peer -H "Content-Type: applicatio
 wg-quick up wg0
 ping -c 5 10.8.0.1
 
-tail -f /dev/null
+#tail -f /dev/null
 #../bin/spark-submit --jars ../jars/hadoop-aws-3.3.4.jar,../jars/aws-java-sdk-bundle-1.12.608.jar s3_wc.py
+/usr/sbin/sshd -D
