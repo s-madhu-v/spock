@@ -48,3 +48,4 @@ wg-quick up wg0
 ping -c 5 10.8.0.1
 
 tail -f /dev/null
+#../bin/spark-submit --jars ../jars/hadoop-aws-3.3.4.jar,../jars/aws-java-sdk-bundle-1.12.608.jar s3_wc.py
