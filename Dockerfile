@@ -8,7 +8,7 @@ RUN apt install sudo -y
 RUN apt install vim -y
 RUN apt install -y openssh-server
 RUN mkdir -p /run/sshd
-RUN apt install wireguard -y
+# RUN apt install wireguard -y
 RUN apt-get install -y iproute2
 RUN apt-get install -y iputils-ping
 RUN apt-get install jq -y
@@ -27,7 +27,7 @@ RUN chmod +x /usr/local/bin/write_sparkk_conf.sh
 
 # Download dependencies for spark
 RUN wget -P /opt/spark/jars https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar
-RUN wget -P /opt/spark/jars https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.608/aws-java-sdk-bundle-1.12.608.
+RUN wget -P /opt/spark/jars https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.608/aws-java-sdk-bundle-1.12.608.jar
 
 ENTRYPOINT ["/usr/local/bin/write_sparkk_conf.sh"]
 
